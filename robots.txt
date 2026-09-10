@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://SEUDOMINIO/sitemap.xml
+Sitemap: https://thiagomoraispeixoto.github.io/thiagopeixoto-site/sitemap.xml
