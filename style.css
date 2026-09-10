@@ -1,9 +1,18 @@
-/* Thiago Morais Peixoto — landing page
-   Documento clínico legível: uma coluna, uma família tipográfica, silêncio visual.
-   Duas cortes ópticas da Source Serif 4: texto (opsz 13) e display (opsz 44). */
+/* Thiago Morais Peixoto — identidade editorial
+   Papel quente, vinho, serifa de leitura. Cormorant Garamond nos momentos
+   grandes; Source Serif 4 em tudo que se lê por mais de uma linha. */
 
 @font-face {
-  font-family: 'SS4 Text';
+  font-family: 'Cormorant';
+  src: url('fonts/cormorant.woff2') format('woff2-variations'),
+       url('fonts/cormorant.woff2') format('woff2');
+  font-weight: 300 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SS4';
   src: url('fonts/ss4-text.woff2') format('woff2-variations'),
        url('fonts/ss4-text.woff2') format('woff2');
   font-weight: 400 600;
@@ -11,263 +20,370 @@
   font-display: swap;
 }
 
-@font-face {
-  font-family: 'SS4 Display';
-  src: url('fonts/ss4-display.woff2') format('woff2');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
 :root {
-  --papel: #F4F5F3;
-  --tinta: #1F2A2E;
-  --acento: #2F5D62;
-  --secundario: #6E7A7C;
-  --linha: #D9DEDB;
-  --realce: #E8EDEA;
+  --papel:      #F7F3EC;
+  --papel-2:    #F1EBE0;
+  --tinta:      #2A2422;
+  --vinho:      #6E2436;
+  --vinho-fundo:#4E1926;
+  --secundario: #6A605A;
+  --linha:      #DCD3C6;
+  --creme:      #F6F1E8;
 
-  --medida: 34rem;
-  --ar-bloco: 5rem;      /* respiro acima da divisória */
-  --ar-titulo: 3rem;     /* divisória até a régua do título */
-  --serif: 'SS4 Text', Georgia, 'Times New Roman', serif;
-  --display: 'SS4 Display', 'SS4 Text', Georgia, serif;
+  --serif:   'SS4', Georgia, 'Times New Roman', serif;
+  --display: 'Cormorant', 'SS4', Georgia, serif;
+
+  --largura: 68rem;   /* caixa da página */
+  --medida:  36rem;   /* medida de leitura */
+  --ar:      7rem;    /* respiro entre seções */
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 
 body {
   margin: 0;
   background: var(--papel);
   color: var(--tinta);
   font-family: var(--serif);
-  font-size: 1.1875rem;
-  font-weight: 400;
-  line-height: 1.62;
-  text-align: left;
+  font-size: 1.125rem;
+  line-height: 1.68;
   font-kerning: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.pagina {
-  max-width: var(--medida);
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
+
+.caixa {
+  max-width: var(--largura);
   margin: 0 auto;
-  padding: 4.5rem 1.5rem 0;
+  padding: 0 2rem;
 }
 
 p, li { max-width: var(--medida); }
+p { margin: 0 0 1.2rem; text-wrap: pretty; }
+ul { margin: 0 0 1.2rem; padding-left: 1.1rem; }
+li { margin-bottom: 0.55rem; padding-left: 0.2rem; text-wrap: pretty; }
+li::marker { color: var(--vinho); }
 
-h1, h2, h3 { margin: 0; font-weight: 600; }
+a { color: var(--vinho); text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+:focus-visible { outline: 2px solid var(--vinho); outline-offset: 3px; }
 
-/* Único momento tipográfico grande da página. Corte óptico de display:
-   contraste maior, serifas mais finas, espacejamento fechado. */
+h1, h2, h3 { margin: 0; font-weight: 400; }
+
 h1 {
   font-family: var(--display);
-  font-size: clamp(2.25rem, 6.2vw, 3.6rem);
+  font-size: clamp(2.8rem, 5.6vw, 4.15rem);
+  font-weight: 400;
   line-height: 1.04;
-  letter-spacing: -0.024em;
-  text-wrap: balance;
-  margin: 2.25rem 0 2rem;
+  letter-spacing: -0.012em;
+  margin: 1.5rem 0 1.75rem;
+  max-width: 15ch;
 }
 
 h2 {
-  font-size: clamp(1.5rem, 3vw, 1.9rem);
-  line-height: 1.18;
-  letter-spacing: -0.012em;
-  margin: 0 0 1.4rem;
+  font-family: var(--display);
+  font-size: clamp(1.95rem, 3.4vw, 2.6rem);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.008em;
+  margin: 0 0 1.75rem;
+  max-width: 20ch;
 }
 
 h3 {
-  font-size: 1.15rem;
-  line-height: 1.35;
-  letter-spacing: -0.005em;
-  margin: 2.75rem 0 0.7rem;
-}
-
-p { margin: 0 0 1.15rem; text-wrap: pretty; }
-ul { margin: 0 0 1.15rem; padding-left: 1.05rem; }
-li { margin-bottom: 0.45rem; padding-left: 0.2rem; text-wrap: pretty; }
-
-a { color: var(--acento); text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
-
-:focus-visible { outline: 2px solid var(--acento); outline-offset: 2px; }
-
-/* Cabeçalho de documento: nome, registro, filete. */
-.timbre {
-  padding-bottom: 1.1rem;
-  border-bottom: 1px solid var(--linha);
-}
-.timbre .nome {
-  display: block;
+  font-family: var(--display);
+  font-size: 1.5rem;
   font-weight: 600;
-  font-size: 1.05rem;
-  letter-spacing: 0.005em;
-  line-height: 1.3;
+  line-height: 1.22;
+  margin: 0 0 0.65rem;
+  max-width: 26ch;
 }
-.timbre .crm {
-  display: block;
-  font-size: 0.9rem;
-  color: var(--secundario);
-  line-height: 1.5;
+
+/* Rótulo: versalete espaçado em vinho, com filete curto. */
+.rotulo {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin: 0 0 1.15rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--vinho);
+  max-width: none;
+}
+.rotulo::before {
+  content: "";
+  width: 2rem;
+  height: 1px;
+  background: var(--vinho);
+  flex: none;
 }
 
 .apoio { font-size: 0.95rem; color: var(--secundario); }
 
-/* Blocos. A divisória abre o intervalo; a régua fecha o intervalo
-   colada no título, para que as duas linhas não flutuem soltas. */
-.bloco {
-  padding: var(--ar-titulo) 0 var(--ar-bloco);
-  border-top: 1px solid var(--linha);
+/* ---------- Cabeçalho fixo ---------- */
+.topo {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(247, 243, 236, 0.94);
+  backdrop-filter: saturate(140%) blur(8px);
+  border-bottom: 1px solid var(--linha);
 }
-.abertura { padding: 0 0 var(--ar-bloco); border-top: 0; }
-
-.regua {
-  display: block;
-  width: 2.5rem;
-  height: 2px;
-  background: var(--acento);
-  margin-bottom: 1.05rem;
+.topo .caixa {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  min-height: 68px;
 }
-
-/* CTA */
-.cta {
-  display: inline-block;
-  margin: 1rem 0 0;
-  padding: 0.8rem 1.7rem;
-  min-height: 44px;
-  background: var(--acento);
-  color: var(--papel);
-  font-weight: 600;
-  font-size: 1.0625rem;
+.marca {
+  font-family: var(--display);
+  font-size: 1.3rem;
+  font-weight: 500;
   letter-spacing: 0.005em;
+  color: var(--tinta);
   text-decoration: none;
-  border: 1px solid var(--acento);
-  transition: background-color 140ms ease, color 140ms ease;
+  white-space: nowrap;
 }
-.cta:hover, .cta:focus-visible { background: var(--papel); color: var(--acento); }
-
-/* Único elemento com fundo próprio: o registro escrito. */
-.registro {
-  background: var(--realce);
-  border-left: 3px solid var(--acento);
-  padding: 1.6rem 1.6rem 1.6rem 2.5rem;
-  margin: 2rem 0;
+.topo nav {
+  display: flex;
+  gap: 1.75rem;
+  margin-left: auto;
+  font-size: 0.9rem;
 }
-.registro p:last-child, .registro ul:last-child { margin-bottom: 0; }
-/* Marcadores pendurados: o texto dos itens alinha com o do parágrafo acima. */
-.registro ul { padding-left: 1.05rem; margin-left: -1.05rem; }
+.topo nav a {
+  color: var(--tinta);
+  text-decoration: none;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid transparent;
+}
+.topo nav a:hover { border-bottom-color: var(--vinho); color: var(--vinho); }
+.topo .botao { margin-left: 1.5rem; }
 
-/* Retrato: fotografia de identificação sobre o documento. */
-.retrato {
+/* ---------- Botões ---------- */
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0.7rem 1.6rem;
+  background: var(--vinho);
+  color: var(--creme);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  border: 1px solid var(--vinho);
+  transition: background-color 150ms ease, color 150ms ease;
+}
+.botao:hover, .botao:focus-visible { background: transparent; color: var(--vinho); }
+.botao.claro { background: var(--creme); color: var(--vinho); border-color: var(--creme); }
+.botao.claro:hover, .botao.claro:focus-visible { background: transparent; color: var(--creme); }
+
+/* ---------- Capa ---------- */
+.capa { padding: 5.5rem 0 var(--ar); }
+.capa .caixa {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: 4.5rem;
+  align-items: center;
+}
+.identificacao {
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--secundario);
+  margin: 0;
+}
+.capa h1 { margin-top: 1.25rem; }
+.capa .entrada { font-size: 1.1875rem; }
+.capa .botao { margin-top: 1.25rem; }
+
+.capa figure { margin: 0; }
+.capa img {
   display: block;
-  width: 160px;
+  width: 100%;
   height: auto;
-  margin: 0.5rem 0 2.25rem;
   border: 1px solid var(--linha);
 }
 
-address { font-style: normal; margin: 0 0 0.5rem; }
+/* ---------- Seções ---------- */
+.secao { padding: var(--ar) 0; scroll-margin-top: 5rem; }
+.secao.alterna { background: var(--papel-2); }
+.secao + .secao:not(.alterna) { border-top: 1px solid var(--linha); }
+.secao.alterna + .secao:not(.alterna) { border-top: 0; }
 
-/* FAQ */
+/* Cabeça de seção e corpo em duas colunas nas telas largas:
+   o título ocupa a coluna estreita, o texto segue na medida de leitura. */
+.duas {
+  display: grid;
+  grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
+  gap: 3.5rem 4.5rem;
+  align-items: start;
+}
+.duas > .cabeca { position: sticky; top: 96px; }
+.duas > .cabeca h2 { font-size: clamp(1.85rem, 2.9vw, 2.25rem); max-width: 14ch; }
+
+/* Destaque: o registro escrito. Único painel escuro da página. */
+.registro {
+  background: var(--vinho-fundo);
+  color: var(--creme);
+  padding: 2.75rem 3rem;
+  margin: 2.5rem 0;
+  max-width: var(--medida);
+}
+.registro .rotulo { color: var(--creme); }
+.registro .rotulo::before { background: var(--creme); }
+.registro p { margin-bottom: 1rem; }
+.registro ul { margin: 0; }
+.registro li { margin-bottom: 0.6rem; }
+.registro li::marker { color: var(--creme); }
+.registro p:last-child, .registro ul:last-child { margin-bottom: 0; }
+
+/* Frase de fecho de bloco */
+.fecho {
+  font-family: var(--display);
+  font-size: 1.6rem;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.32;
+  color: var(--vinho);
+  max-width: 30rem;
+  margin: 2.5rem 0 0;
+  padding-left: 1.5rem;
+  border-left: 2px solid var(--vinho);
+}
+
+/* Quatro princípios de "Como eu trabalho" */
+.principios {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3rem 3.5rem;
+}
+.principios > div { max-width: 26rem; }
+.principios p:last-child { margin-bottom: 0; }
+.principios p { font-size: 1.0625rem; }
+
+/* Modalidades */
+.modalidades {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3rem 3.5rem;
+}
+.modalidades p { font-size: 1.0625rem; }
+.modalidades .botao { margin-top: 1.5rem; }
+address { font-style: normal; margin-bottom: 0; }
+
+/* ---------- FAQ ---------- */
+.perguntas { max-width: 48rem; }
 details { border-bottom: 1px solid var(--linha); }
 details:first-of-type { border-top: 1px solid var(--linha); }
-
 summary {
   position: relative;
   display: block;
-  padding: 1.05rem 2.5rem 1.05rem 0;
+  padding: 1.25rem 3rem 1.25rem 0;
+  font-family: var(--display);
+  font-size: 1.35rem;
   font-weight: 600;
-  line-height: 1.4;
+  line-height: 1.3;
   cursor: pointer;
   list-style: none;
 }
 summary::-webkit-details-marker { display: none; }
-summary:hover { color: var(--acento); }
-
+summary:hover { color: var(--vinho); }
+details[open] summary { color: var(--vinho); }
 summary::after {
   content: "";
   position: absolute;
-  right: 0.4rem;
-  top: 1.55rem;
-  width: 0.46rem;
-  height: 0.46rem;
-  border-right: 1.5px solid var(--acento);
-  border-bottom: 1.5px solid var(--acento);
+  right: 0.5rem;
+  top: 1.85rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-right: 1.5px solid var(--vinho);
+  border-bottom: 1.5px solid var(--vinho);
   transform: rotate(45deg);
-  transition: transform 160ms ease;
+  transition: transform 180ms ease;
 }
 details[open] summary::after { transform: rotate(-135deg); }
-details[open] summary { color: var(--acento); }
+details > *:not(summary) { margin-bottom: 1.25rem; max-width: 42rem; }
 
-details > *:not(summary) { margin-bottom: 1.05rem; }
-.faq-cta { margin-top: 2.75rem; }
+/* ---------- Chamada final ---------- */
+.chamada { background: var(--papel-2); padding: var(--ar) 0; text-align: left; }
+.chamada h2 { font-size: clamp(1.7rem, 2.5vw, 2.15rem); max-width: 26ch; margin-bottom: 1.5rem; }
+.chamada .botao { margin-top: 0.75rem; }
 
-/* Rodapé. O lema volta em display: fecha a página onde ela abriu. */
-footer { padding: var(--ar-titulo) 0 5rem; border-top: 1px solid var(--linha); }
-.assinatura {
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: var(--secundario);
-  margin: 3rem 0 0;
-  padding-top: 1.75rem;
-  border-top: 1px solid var(--linha);
+/* ---------- Rodapé ---------- */
+footer {
+  background: var(--vinho-fundo);
+  color: var(--creme);
+  padding: 4.5rem 0 3.5rem;
 }
-.assinatura strong { color: var(--tinta); font-weight: 600; }
-
-.lema {
+footer .caixa {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 3rem;
+  align-items: start;
+}
+footer .lema {
   font-family: var(--display);
-  font-size: 1.55rem;
-  line-height: 1.15;
-  letter-spacing: -0.018em;
-  font-weight: 600;
-  margin: 2.25rem 0 1.75rem;
+  font-size: clamp(1.9rem, 3.2vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.12;
+  margin: 0;
+  max-width: 14ch;
 }
-.disclaimer { font-size: 0.9rem; color: var(--secundario); font-style: italic; margin: 0; }
-
-/* Botão flutuante */
-.flutuante {
-  position: fixed;
-  right: 1.25rem;
-  bottom: 1.25rem;
-  display: none;
-  align-items: center;
-  min-height: 44px;
-  padding: 0.7rem 1.2rem;
-  background: var(--acento);
-  color: var(--papel);
-  font-size: 0.95rem;
-  font-weight: 600;
-  text-decoration: none;
-  border: 1px solid var(--acento);
+footer .assinatura { font-size: 0.95rem; line-height: 1.7; margin: 0; opacity: 0.92; }
+footer .assinatura strong { font-weight: 600; }
+footer .disclaimer {
+  grid-column: 1 / -1;
+  margin: 2.5rem 0 0;
+  padding-top: 1.75rem;
+  border-top: 1px solid rgba(246, 241, 232, 0.22);
+  font-size: 0.875rem;
+  opacity: 0.78;
+  max-width: 46rem;
 }
-.flutuante.visivel { display: inline-flex; }
+footer a { color: var(--creme); }
 
-/* Telas largas: a margem esquerda ganha um filete de documento,
-   para a coluna não boiar num campo vazio. */
-@media (min-width: 1080px) {
-  :root { --ar-bloco: 5.5rem; --ar-titulo: 3.25rem; }
-  .pagina { padding-top: 6.5rem; }
-}
-
-@media (max-width: 640px) {
-  :root { --ar-bloco: 3.5rem; --ar-titulo: 2.5rem; --medida: 100%; }
-  body { font-size: 1.125rem; }
-  .pagina { padding: 3rem 1.25rem 0; }
-  .cta { display: block; width: 100%; text-align: center; }
-  .flutuante { right: 0.75rem; bottom: 0.75rem; }
-  .lema { font-size: 1.4rem; }
+/* ---------- Telas médias ---------- */
+@media (max-width: 980px) {
+  :root { --ar: 4.5rem; }
+  .capa { padding-top: 3.5rem; }
+  .capa .caixa { grid-template-columns: 1fr; gap: 2.75rem; }
+  .capa figure { order: -1; max-width: 300px; }
+  .duas { grid-template-columns: 1fr; gap: 2rem; }
+  .duas > .cabeca { position: static; }
+  .principios, .modalidades { grid-template-columns: 1fr; gap: 2.5rem; }
+  .topo nav { display: none; }
+  .topo .botao { margin-left: auto; }
+  footer .caixa { grid-template-columns: 1fr; gap: 2rem; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  * { transition: none !important; }
+/* ---------- Telefone ---------- */
+@media (max-width: 620px) {
+  :root { --ar: 3.5rem; --medida: 100%; }
+  .caixa { padding: 0 1.25rem; }
+  body { font-size: 1.0625rem; }
+  .topo .caixa { min-height: 60px; gap: 1rem; }
+  .marca { font-size: 1.1rem; }
+  .topo .botao { padding: 0.55rem 1rem; font-size: 0.9rem; min-height: 42px; }
+  .capa figure { max-width: 240px; }
+  .registro { padding: 1.85rem 1.6rem; }
+  .fecho { font-size: 1.35rem; padding-left: 1.1rem; }
+  summary { font-size: 1.2rem; padding-right: 2.25rem; }
+  .capa .botao, .chamada .botao { width: 100%; }
 }
 
 @media print {
-  .flutuante { display: none; }
+  .topo { position: static; }
   body { background: #fff; }
-  .pagina { border-left: 0; padding-left: 0; }
+  footer, .registro { background: #fff; color: #000; }
   details > *:not(summary) { display: block; }
 }
