@@ -1,23 +1,17 @@
-/* Thiago Morais Peixoto — identidade editorial
-   Papel quente, vinho, serifa de leitura. Cormorant Garamond nos momentos
-   grandes; Source Serif 4 em tudo que se lê por mais de uma linha. */
+/* Thiago Morais Peixoto — v2
+   Identidade editorial: papel quente, vinho, Cormorant Garamond + Source Serif 4. */
 
 @font-face {
   font-family: 'Cormorant';
   src: url('fonts/cormorant.woff2') format('woff2-variations'),
        url('fonts/cormorant.woff2') format('woff2');
-  font-weight: 300 600;
-  font-style: normal;
-  font-display: swap;
+  font-weight: 300 600; font-style: normal; font-display: swap;
 }
-
 @font-face {
   font-family: 'SS4';
   src: url('fonts/ss4-text.woff2') format('woff2-variations'),
        url('fonts/ss4-text.woff2') format('woff2');
-  font-weight: 400 600;
-  font-style: normal;
-  font-display: swap;
+  font-weight: 400 600; font-style: normal; font-display: swap;
 }
 
 :root {
@@ -33,9 +27,9 @@
   --serif:   'SS4', Georgia, 'Times New Roman', serif;
   --display: 'Cormorant', 'SS4', Georgia, serif;
 
-  --largura: 68rem;   /* caixa da página */
-  --medida:  36rem;   /* medida de leitura */
-  --ar:      7rem;    /* respiro entre seções */
+  --largura: 68rem;
+  --medida:  36rem;
+  --ar:      6.5rem;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -47,7 +41,7 @@ body {
   color: var(--tinta);
   font-family: var(--serif);
   font-size: 1.125rem;
-  line-height: 1.68;
+  line-height: 1.66;
   font-kerning: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -58,309 +52,259 @@ body {
   * { transition: none !important; }
 }
 
-.caixa {
-  max-width: var(--largura);
-  margin: 0 auto;
-  padding: 0 2rem;
-}
+.caixa { max-width: var(--largura); margin: 0 auto; padding: 0 2rem; }
 
 p, li { max-width: var(--medida); }
-p { margin: 0 0 1.2rem; text-wrap: pretty; }
-ul { margin: 0 0 1.2rem; padding-left: 1.1rem; }
-li { margin-bottom: 0.55rem; padding-left: 0.2rem; text-wrap: pretty; }
-li::marker { color: var(--vinho); }
-
+p { margin: 0 0 1.15rem; text-wrap: pretty; }
 a { color: var(--vinho); text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
 :focus-visible { outline: 2px solid var(--vinho); outline-offset: 3px; }
 
-h1, h2, h3 { margin: 0; font-weight: 400; }
+h1, h2, h3 { margin: 0; font-weight: 400; font-family: var(--display); }
 
 h1 {
-  font-family: var(--display);
   font-size: clamp(2.8rem, 5.6vw, 4.15rem);
-  font-weight: 400;
-  line-height: 1.04;
-  letter-spacing: -0.012em;
-  margin: 1.5rem 0 1.75rem;
-  max-width: 15ch;
+  line-height: 1.04; letter-spacing: -0.012em;
+  margin: 1.35rem 0 1.6rem; max-width: 15ch;
 }
-
 h2 {
-  font-family: var(--display);
   font-size: clamp(1.95rem, 3.4vw, 2.6rem);
-  font-weight: 400;
-  line-height: 1.12;
-  letter-spacing: -0.008em;
-  margin: 0 0 1.75rem;
-  max-width: 20ch;
+  line-height: 1.12; letter-spacing: -0.008em;
+  margin: 0 0 1.6rem; max-width: 20ch;
 }
+h3 { font-size: 1.45rem; font-weight: 600; line-height: 1.24; margin: 0 0 0.6rem; max-width: 26ch; }
 
-h3 {
-  font-family: var(--display);
-  font-size: 1.5rem;
-  font-weight: 600;
-  line-height: 1.22;
-  margin: 0 0 0.65rem;
-  max-width: 26ch;
-}
-
-/* Rótulo: versalete espaçado em vinho, com filete curto. */
 .rotulo {
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-  margin: 0 0 1.15rem;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--vinho);
-  max-width: none;
+  display: flex; align-items: center; gap: 0.85rem;
+  margin: 0 0 1.1rem; max-width: none;
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--vinho);
 }
-.rotulo::before {
-  content: "";
-  width: 2rem;
-  height: 1px;
-  background: var(--vinho);
-  flex: none;
-}
+.rotulo::before { content: ""; width: 2rem; height: 1px; background: var(--vinho); flex: none; }
 
 .apoio { font-size: 0.95rem; color: var(--secundario); }
 
-/* ---------- Cabeçalho fixo ---------- */
+/* ---------- Cabeçalho ---------- */
 .topo {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: rgba(247, 243, 236, 0.94);
+  position: sticky; top: 0; z-index: 20;
+  background: rgba(247,243,236,0.94);
   backdrop-filter: saturate(140%) blur(8px);
   border-bottom: 1px solid var(--linha);
 }
-.topo .caixa {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  min-height: 68px;
-}
+.topo .caixa { display: flex; align-items: center; gap: 2rem; min-height: 68px; }
 .marca {
-  font-family: var(--display);
-  font-size: 1.3rem;
-  font-weight: 500;
-  letter-spacing: 0.005em;
-  color: var(--tinta);
-  text-decoration: none;
-  white-space: nowrap;
+  font-family: var(--display); font-size: 1.3rem; font-weight: 500;
+  color: var(--tinta); text-decoration: none; white-space: nowrap;
 }
-.topo nav {
-  display: flex;
-  gap: 1.75rem;
-  margin-left: auto;
-  font-size: 0.9rem;
-}
+.topo nav { display: flex; gap: 1.75rem; margin-left: auto; font-size: 0.9rem; }
 .topo nav a {
-  color: var(--tinta);
-  text-decoration: none;
-  padding: 0.6rem 0;
-  border-bottom: 1px solid transparent;
+  color: var(--tinta); text-decoration: none;
+  padding: 0.6rem 0; border-bottom: 1px solid transparent;
 }
 .topo nav a:hover { border-bottom-color: var(--vinho); color: var(--vinho); }
 .topo .botao { margin-left: 1.5rem; }
 
 /* ---------- Botões ---------- */
 .botao {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 46px;
-  padding: 0.7rem 1.6rem;
-  background: var(--vinho);
-  color: var(--creme);
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  text-decoration: none;
-  border: 1px solid var(--vinho);
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 46px; padding: 0.7rem 1.6rem;
+  background: var(--vinho); color: var(--creme);
+  font-size: 1rem; font-weight: 600; letter-spacing: 0.01em;
+  text-decoration: none; border: 1px solid var(--vinho);
   transition: background-color 150ms ease, color 150ms ease;
 }
 .botao:hover, .botao:focus-visible { background: transparent; color: var(--vinho); }
 .botao.claro { background: var(--creme); color: var(--vinho); border-color: var(--creme); }
 .botao.claro:hover, .botao.claro:focus-visible { background: transparent; color: var(--creme); }
+.secundario {
+  display: inline-flex; align-items: center; min-height: 46px;
+  margin-left: 1.5rem; font-size: 1rem; color: var(--tinta);
+  text-decoration: none; border-bottom: 1px solid var(--linha);
+}
+.secundario:hover { border-bottom-color: var(--vinho); color: var(--vinho); }
 
 /* ---------- Capa ---------- */
-.capa { padding: 5.5rem 0 var(--ar); }
+.capa { padding: 5rem 0 var(--ar); }
 .capa .caixa {
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-  gap: 4.5rem;
-  align-items: center;
+  display: grid; grid-template-columns: minmax(0,1.15fr) minmax(0,0.85fr);
+  gap: 4.5rem; align-items: center;
 }
 .identificacao {
-  font-size: 0.74rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--secundario);
-  margin: 0;
+  margin: 0; font-size: 0.74rem; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--secundario);
 }
-.capa h1 { margin-top: 1.25rem; }
 .capa .entrada { font-size: 1.1875rem; }
-.capa .botao { margin-top: 1.25rem; }
-
+.capa .acoes { margin-top: 1.5rem; display: flex; flex-wrap: wrap; align-items: center; }
 .capa figure { margin: 0; }
-.capa img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border: 1px solid var(--linha);
-}
+.capa img { display: block; width: 100%; height: auto; border: 1px solid var(--linha); }
 
 /* ---------- Seções ---------- */
 .secao { padding: var(--ar) 0; scroll-margin-top: 5rem; }
 .secao.alterna { background: var(--papel-2); }
-.secao + .secao:not(.alterna) { border-top: 1px solid var(--linha); }
-.secao.alterna + .secao:not(.alterna) { border-top: 0; }
 
-/* Cabeça de seção e corpo em duas colunas nas telas largas:
-   o título ocupa a coluna estreita, o texto segue na medida de leitura. */
 .duas {
-  display: grid;
-  grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
-  gap: 3.5rem 4.5rem;
-  align-items: start;
+  display: grid; grid-template-columns: minmax(0,20rem) minmax(0,1fr);
+  gap: 3.5rem 4.5rem; align-items: start;
 }
 .duas > .cabeca { position: sticky; top: 96px; }
 .duas > .cabeca h2 { font-size: clamp(1.85rem, 2.9vw, 2.25rem); max-width: 14ch; }
 
-/* Destaque: o registro escrito. Único painel escuro da página. */
-.registro {
-  background: var(--vinho-fundo);
-  color: var(--creme);
-  padding: 2.75rem 3rem;
-  margin: 2.5rem 0;
-  max-width: var(--medida);
+/* ---------- Os cinco passos ---------- */
+.passos { list-style: none; margin: 0; padding: 0; max-width: 44rem; }
+.passos li {
+  display: grid; grid-template-columns: 12.5rem minmax(0,1fr);
+  gap: 0 2rem; max-width: none;
+  padding: 1.15rem 0 1.15rem 2rem;
+  border-left: 1px solid var(--linha);
+  position: relative;
 }
-.registro .rotulo { color: var(--creme); }
-.registro .rotulo::before { background: var(--creme); }
-.registro p { margin-bottom: 1rem; }
-.registro ul { margin: 0; }
-.registro li { margin-bottom: 0.6rem; }
-.registro li::marker { color: var(--creme); }
-.registro p:last-child, .registro ul:last-child { margin-bottom: 0; }
+.passos li::before {
+  content: ""; position: absolute; left: -4.5px; top: 1.85rem;
+  width: 9px; height: 9px; background: var(--vinho); border-radius: 50%;
+}
+.passos li:last-child { padding-bottom: 0; }
+.passo-nome {
+  font-family: var(--display); font-size: 1.4rem; font-style: italic;
+  line-height: 1.2; color: var(--vinho);
+}
+.passo-txt { font-size: 1.0625rem; align-self: center; }
+.passos + p { margin-top: 2.25rem; }
 
-/* Frase de fecho de bloco */
-.fecho {
-  font-family: var(--display);
-  font-size: 1.6rem;
-  font-weight: 400;
-  font-style: italic;
-  line-height: 1.32;
-  color: var(--vinho);
-  max-width: 30rem;
-  margin: 2.5rem 0 0;
-  padding-left: 1.5rem;
-  border-left: 2px solid var(--vinho);
+/* ---------- Fac-símile do registro ---------- */
+.prova { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,20rem); gap: 4.5rem; align-items: center; }
+.documento {
+  background: #FCFBF8;
+  border: 1px solid #E3DCCF;
+  box-shadow: 0 1px 2px rgba(42,36,34,.05), 0 12px 28px -12px rgba(42,36,34,.22);
+  padding: 1.6rem 1.5rem 1.35rem;
+  transform: rotate(-1.4deg);
+  font-size: 0.8125rem;
+  max-width: 21rem;
+}
+.doc-topo {
+  display: flex; justify-content: space-between; align-items: baseline;
+  gap: 1rem; padding-bottom: 0.7rem; margin-bottom: 1.15rem;
+  border-bottom: 1px solid #E3DCCF;
+}
+.doc-nome { font-family: var(--display); font-size: 1.05rem; font-weight: 600; }
+.doc-crm { font-size: 0.62rem; letter-spacing: 0.13em; text-transform: uppercase; color: var(--secundario); }
+.doc-rubrica {
+  font-size: 0.6rem; font-weight: 600; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--vinho); margin: 0 0 0.5rem;
+}
+.doc-linhas { margin: 0 0 1.15rem; }
+.doc-linhas i { display: block; height: 1px; background: #E7E1D6; margin-bottom: 0.62rem; }
+.doc-rodape {
+  margin-top: 1.35rem; padding-top: 0.7rem; border-top: 1px solid #E3DCCF;
+  font-size: 0.62rem; letter-spacing: 0.11em; text-transform: uppercase; color: var(--secundario);
 }
 
-/* Quatro princípios de "Como eu trabalho" */
-.principios {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 3rem 3.5rem;
+/* ---------- Pilares ---------- */
+.pilares {
+  display: grid; grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 3.5rem; margin-top: 4.5rem; padding-top: 3.5rem;
+  border-top: 1px solid var(--linha);
 }
-.principios > div { max-width: 26rem; }
-.principios p:last-child { margin-bottom: 0; }
-.principios p { font-size: 1.0625rem; }
+.pilares h3 {
+  font-family: var(--serif); font-size: 0.74rem; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--vinho);
+  margin: 1rem 0 0.6rem;
+}
+.pilares p { font-size: 1rem; margin: 0; }
+.pilares svg { display: block; width: 26px; height: 26px; stroke: var(--vinho); fill: none; stroke-width: 1.2; }
 
-/* Modalidades */
-.modalidades {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 3rem 3.5rem;
+/* ---------- Citação ---------- */
+.citacao { background: var(--papel-2); padding: 5rem 0; }
+.citacao blockquote {
+  margin: 0; max-width: 30rem;
+  font-family: var(--display); font-style: italic; font-weight: 400;
+  font-size: clamp(1.7rem, 3.2vw, 2.35rem); line-height: 1.28; color: var(--vinho);
 }
+.citacao cite {
+  display: block; margin-top: 1.5rem; font-style: normal;
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--secundario);
+}
+
+/* ---------- Listas ---------- */
+.lista { list-style: none; margin: 0; padding: 0; max-width: 40rem; }
+.lista li {
+  max-width: none; padding: 0.85rem 0 0.85rem 1.9rem;
+  border-bottom: 1px solid var(--linha); position: relative;
+}
+.lista li:first-child { border-top: 1px solid var(--linha); }
+.lista li::before {
+  content: ""; position: absolute; left: 0; top: 1.55rem;
+  width: 0.85rem; height: 1px; background: var(--vinho);
+}
+.lista + p { margin-top: 1.5rem; }
+
+/* ---------- Sobre ---------- */
+.formacao {
+  margin-top: 1.75rem; padding-top: 1.25rem;
+  border-top: 1px solid var(--linha);
+  font-family: var(--display); font-size: 1.35rem; color: var(--vinho);
+}
+
+/* ---------- Modalidades ---------- */
+.modalidades { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 3rem 3.5rem; }
 .modalidades p { font-size: 1.0625rem; }
-.modalidades .botao { margin-top: 1.5rem; }
-address { font-style: normal; margin-bottom: 0; }
+address { font-style: normal; margin: 0; }
 
 /* ---------- FAQ ---------- */
 .perguntas { max-width: 48rem; }
 details { border-bottom: 1px solid var(--linha); }
 details:first-of-type { border-top: 1px solid var(--linha); }
 summary {
-  position: relative;
-  display: block;
+  position: relative; display: block; list-style: none; cursor: pointer;
   padding: 1.25rem 3rem 1.25rem 0;
-  font-family: var(--display);
-  font-size: 1.35rem;
-  font-weight: 600;
-  line-height: 1.3;
-  cursor: pointer;
-  list-style: none;
+  font-family: var(--display); font-size: 1.35rem; font-weight: 600; line-height: 1.3;
 }
 summary::-webkit-details-marker { display: none; }
-summary:hover { color: var(--vinho); }
-details[open] summary { color: var(--vinho); }
+summary:hover, details[open] summary { color: var(--vinho); }
 summary::after {
-  content: "";
-  position: absolute;
-  right: 0.5rem;
-  top: 1.85rem;
-  width: 0.5rem;
-  height: 0.5rem;
-  border-right: 1.5px solid var(--vinho);
-  border-bottom: 1.5px solid var(--vinho);
-  transform: rotate(45deg);
-  transition: transform 180ms ease;
+  content: ""; position: absolute; right: 0.5rem; top: 1.85rem;
+  width: 0.5rem; height: 0.5rem;
+  border-right: 1.5px solid var(--vinho); border-bottom: 1.5px solid var(--vinho);
+  transform: rotate(45deg); transition: transform 180ms ease;
 }
 details[open] summary::after { transform: rotate(-135deg); }
 details > *:not(summary) { margin-bottom: 1.25rem; max-width: 42rem; }
 
-/* ---------- Chamada final ---------- */
-.chamada { background: var(--papel-2); padding: var(--ar) 0; text-align: left; }
-.chamada h2 { font-size: clamp(1.7rem, 2.5vw, 2.15rem); max-width: 26ch; margin-bottom: 1.5rem; }
-.chamada .botao { margin-top: 0.75rem; }
+/* ---------- Agendar ---------- */
+.agendar { background: var(--papel); padding: var(--ar) 0; }
+.agendar p { font-size: 1.1875rem; max-width: 34rem; }
+.agendar .botao { margin-top: 1rem; }
 
 /* ---------- Rodapé ---------- */
-footer {
-  background: var(--vinho-fundo);
-  color: var(--creme);
-  padding: 4.5rem 0 3.5rem;
-}
-footer .caixa {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 3rem;
-  align-items: start;
-}
+footer { background: var(--vinho-fundo); color: var(--creme); padding: 4.5rem 0 3.5rem; }
+footer .caixa { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 3rem; align-items: start; }
 footer .lema {
-  font-family: var(--display);
-  font-size: clamp(1.9rem, 3.2vw, 2.5rem);
-  font-weight: 400;
-  line-height: 1.12;
-  margin: 0;
-  max-width: 14ch;
+  font-family: var(--display); font-weight: 400; margin: 0; max-width: 14ch;
+  font-size: clamp(1.9rem, 3.2vw, 2.5rem); line-height: 1.12;
 }
-footer .assinatura { font-size: 0.95rem; line-height: 1.7; margin: 0; opacity: 0.92; }
+footer .assinatura { margin: 0; font-size: 0.95rem; line-height: 1.7; opacity: 0.92; }
 footer .assinatura strong { font-weight: 600; }
 footer .disclaimer {
-  grid-column: 1 / -1;
-  margin: 2.5rem 0 0;
-  padding-top: 1.75rem;
-  border-top: 1px solid rgba(246, 241, 232, 0.22);
-  font-size: 0.875rem;
-  opacity: 0.78;
-  max-width: 46rem;
+  grid-column: 1 / -1; margin: 2.5rem 0 0; padding-top: 1.75rem;
+  border-top: 1px solid rgba(246,241,232,.22);
+  font-size: 0.875rem; opacity: 0.78; max-width: 46rem;
 }
 footer a { color: var(--creme); }
+
+/* ---------- Barra fixa no celular ---------- */
+.barra { display: none; }
 
 /* ---------- Telas médias ---------- */
 @media (max-width: 980px) {
   :root { --ar: 4.5rem; }
-  .capa { padding-top: 3.5rem; }
+  .capa { padding-top: 3rem; }
   .capa .caixa { grid-template-columns: 1fr; gap: 2.75rem; }
   .capa figure { order: -1; max-width: 300px; }
   .duas { grid-template-columns: 1fr; gap: 2rem; }
   .duas > .cabeca { position: static; }
-  .principios, .modalidades { grid-template-columns: 1fr; gap: 2.5rem; }
+  .prova { grid-template-columns: 1fr; gap: 3rem; }
+  .documento { margin: 0 auto; }
+  .pilares, .modalidades { grid-template-columns: 1fr; gap: 2.25rem; }
   .topo nav { display: none; }
   .topo .botao { margin-left: auto; }
   footer .caixa { grid-template-columns: 1fr; gap: 2rem; }
@@ -369,21 +313,33 @@ footer a { color: var(--creme); }
 /* ---------- Telefone ---------- */
 @media (max-width: 620px) {
   :root { --ar: 3.5rem; --medida: 100%; }
+  body { font-size: 1.0625rem; padding-bottom: 68px; }
   .caixa { padding: 0 1.25rem; }
-  body { font-size: 1.0625rem; }
   .topo .caixa { min-height: 60px; gap: 1rem; }
   .marca { font-size: 1.1rem; }
-  .topo .botao { padding: 0.55rem 1rem; font-size: 0.9rem; min-height: 42px; }
+  .topo .botao { display: none; }
   .capa figure { max-width: 240px; }
-  .registro { padding: 1.85rem 1.6rem; }
-  .fecho { font-size: 1.35rem; padding-left: 1.1rem; }
-  summary { font-size: 1.2rem; padding-right: 2.25rem; }
-  .capa .botao, .chamada .botao { width: 100%; }
+  .capa .acoes { display: block; }
+  .capa .botao { width: 100%; }
+  .secundario { margin: 1.15rem 0 0; }
+  .passos li { grid-template-columns: 1fr; gap: 0.3rem; padding-left: 1.5rem; }
+  .passos li::before { top: 1.6rem; }
+  .documento { transform: none; max-width: 100%; }
+  .agendar .botao { width: 100%; }
+
+  .barra {
+    display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+    padding: 0.6rem 1.25rem calc(0.6rem + env(safe-area-inset-bottom));
+    background: rgba(247,243,236,0.96);
+    backdrop-filter: saturate(140%) blur(8px);
+    border-top: 1px solid var(--linha);
+  }
+  .barra .botao { width: 100%; }
 }
 
 @media print {
-  .topo { position: static; }
-  body { background: #fff; }
-  footer, .registro { background: #fff; color: #000; }
+  .topo, .barra { position: static; display: none; }
+  body { background: #fff; padding: 0; }
+  footer, .documento { background: #fff; color: #000; box-shadow: none; }
   details > *:not(summary) { display: block; }
 }
