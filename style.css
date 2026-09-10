@@ -1,11 +1,20 @@
 /* Thiago Morais Peixoto — landing page
-   Documento clínico legível: uma coluna, uma família tipográfica, silêncio visual. */
+   Documento clínico legível: uma coluna, uma família tipográfica, silêncio visual.
+   Duas cortes ópticas da Source Serif 4: texto (opsz 13) e display (opsz 44). */
 
 @font-face {
-  font-family: 'Source Serif 4';
-  src: url('fonts/source-serif-4.woff2') format('woff2-variations'),
-       url('fonts/source-serif-4.woff2') format('woff2');
+  font-family: 'SS4 Text';
+  src: url('fonts/ss4-text.woff2') format('woff2-variations'),
+       url('fonts/ss4-text.woff2') format('woff2');
   font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SS4 Display';
+  src: url('fonts/ss4-display.woff2') format('woff2');
+  font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
@@ -17,8 +26,12 @@
   --secundario: #6E7A7C;
   --linha: #D9DEDB;
   --realce: #E8EDEA;
+
   --medida: 34rem;
-  --bloco: 5rem;
+  --ar-bloco: 5rem;      /* respiro acima da divisória */
+  --ar-titulo: 3rem;     /* divisória até a régua do título */
+  --serif: 'SS4 Text', Georgia, 'Times New Roman', serif;
+  --display: 'SS4 Display', 'SS4 Text', Georgia, serif;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -29,109 +42,134 @@ body {
   margin: 0;
   background: var(--papel);
   color: var(--tinta);
-  font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  font-family: var(--serif);
   font-size: 1.1875rem;
   font-weight: 400;
   line-height: 1.62;
   text-align: left;
+  font-kerning: normal;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .pagina {
   max-width: var(--medida);
   margin: 0 auto;
-  padding: 3.5rem 1.5rem 0;
+  padding: 4.5rem 1.5rem 0;
 }
 
 p, li { max-width: var(--medida); }
 
-h1, h2, h3 { font-weight: 600; margin: 0; }
+h1, h2, h3 { margin: 0; font-weight: 600; }
 
+/* Único momento tipográfico grande da página. Corte óptico de display:
+   contraste maior, serifas mais finas, espacejamento fechado. */
 h1 {
-  font-size: clamp(2.1rem, 5.5vw, 3.4rem);
-  line-height: 1.12;
-  letter-spacing: -0.02em;
-  margin: 1.75rem 0 1.75rem;
+  font-family: var(--display);
+  font-size: clamp(2.25rem, 6.2vw, 3.6rem);
+  line-height: 1.04;
+  letter-spacing: -0.024em;
+  text-wrap: balance;
+  margin: 2.25rem 0 2rem;
 }
 
 h2 {
-  font-size: clamp(1.5rem, 3vw, 2rem);
-  line-height: 1.2;
-  margin: 0 0 1.5rem;
+  font-size: clamp(1.5rem, 3vw, 1.9rem);
+  line-height: 1.18;
+  letter-spacing: -0.012em;
+  margin: 0 0 1.4rem;
 }
 
 h3 {
   font-size: 1.15rem;
   line-height: 1.35;
-  margin: 2.5rem 0 0.75rem;
+  letter-spacing: -0.005em;
+  margin: 2.75rem 0 0.7rem;
 }
 
-p { margin: 0 0 1.15rem; }
-
-ul { margin: 0 0 1.15rem; padding-left: 1.15rem; }
-li { margin-bottom: 0.4rem; }
+p { margin: 0 0 1.15rem; text-wrap: pretty; }
+ul { margin: 0 0 1.15rem; padding-left: 1.05rem; }
+li { margin-bottom: 0.45rem; padding-left: 0.2rem; text-wrap: pretty; }
 
 a { color: var(--acento); text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
 
 :focus-visible { outline: 2px solid var(--acento); outline-offset: 2px; }
 
-/* Identificação */
-.identificacao {
-  font-size: 0.95rem;
-  line-height: 1.5;
-  color: var(--secundario);
-  margin: 0;
+/* Cabeçalho de documento: nome, registro, filete. */
+.timbre {
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--linha);
 }
-.identificacao strong { color: var(--tinta); font-weight: 600; display: block; }
+.timbre .nome {
+  display: block;
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: 0.005em;
+  line-height: 1.3;
+}
+.timbre .crm {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--secundario);
+  line-height: 1.5;
+}
 
 .apoio { font-size: 0.95rem; color: var(--secundario); }
 
-/* Blocos e régua */
-.bloco { padding: var(--bloco) 0; border-top: 1px solid var(--linha); }
-.abertura { padding: 0 0 var(--bloco); border-top: 0; }
+/* Blocos. A divisória abre o intervalo; a régua fecha o intervalo
+   colada no título, para que as duas linhas não flutuem soltas. */
+.bloco {
+  padding: var(--ar-titulo) 0 var(--ar-bloco);
+  border-top: 1px solid var(--linha);
+}
+.abertura { padding: 0 0 var(--ar-bloco); border-top: 0; }
 
 .regua {
   display: block;
-  width: 2.25rem;
+  width: 2.5rem;
   height: 2px;
   background: var(--acento);
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.05rem;
 }
 
 /* CTA */
 .cta {
   display: inline-block;
-  margin: 0.75rem 0 0;
-  padding: 0.85rem 1.6rem;
+  margin: 1rem 0 0;
+  padding: 0.8rem 1.7rem;
   min-height: 44px;
   background: var(--acento);
   color: var(--papel);
   font-weight: 600;
+  font-size: 1.0625rem;
+  letter-spacing: 0.005em;
   text-decoration: none;
   border: 1px solid var(--acento);
+  transition: background-color 140ms ease, color 140ms ease;
 }
 .cta:hover, .cta:focus-visible { background: var(--papel); color: var(--acento); }
 
-/* Único elemento com fundo próprio: o registro escrito */
+/* Único elemento com fundo próprio: o registro escrito. */
 .registro {
   background: var(--realce);
   border-left: 3px solid var(--acento);
-  padding: 1.5rem 1.5rem 1.5rem 1.35rem;
-  margin: 1.75rem 0;
+  padding: 1.6rem 1.6rem 1.6rem 2.5rem;
+  margin: 2rem 0;
 }
 .registro p:last-child, .registro ul:last-child { margin-bottom: 0; }
+/* Marcadores pendurados: o texto dos itens alinha com o do parágrafo acima. */
+.registro ul { padding-left: 1.05rem; margin-left: -1.05rem; }
 
-/* Retrato */
+/* Retrato: fotografia de identificação sobre o documento. */
 .retrato {
   display: block;
-  width: 168px;
+  width: 160px;
   height: auto;
-  margin: 0 0 2rem;
+  margin: 0.5rem 0 2.25rem;
   border: 1px solid var(--linha);
 }
 
-/* Endereço */
-address { font-style: normal; margin: 0 0 1.5rem; }
+address { font-style: normal; margin: 0 0 0.5rem; }
 
 /* FAQ */
 details { border-bottom: 1px solid var(--linha); }
@@ -140,49 +178,64 @@ details:first-of-type { border-top: 1px solid var(--linha); }
 summary {
   position: relative;
   display: block;
-  padding: 1.05rem 2.25rem 1.05rem 0;
+  padding: 1.05rem 2.5rem 1.05rem 0;
   font-weight: 600;
+  line-height: 1.4;
   cursor: pointer;
   list-style: none;
 }
 summary::-webkit-details-marker { display: none; }
+summary:hover { color: var(--acento); }
 
 summary::after {
   content: "";
   position: absolute;
-  right: 0.35rem;
-  top: 1.5rem;
-  width: 0.5rem;
-  height: 0.5rem;
+  right: 0.4rem;
+  top: 1.55rem;
+  width: 0.46rem;
+  height: 0.46rem;
   border-right: 1.5px solid var(--acento);
   border-bottom: 1.5px solid var(--acento);
   transform: rotate(45deg);
-  transform-origin: center;
   transition: transform 160ms ease;
 }
 details[open] summary::after { transform: rotate(-135deg); }
+details[open] summary { color: var(--acento); }
 
 details > *:not(summary) { margin-bottom: 1.05rem; }
-details p:first-of-type { margin-top: 0; }
+.faq-cta { margin-top: 2.75rem; }
 
-.faq-cta { margin-top: 2.5rem; }
+/* Rodapé. O lema volta em display: fecha a página onde ela abriu. */
+footer { padding: var(--ar-titulo) 0 5rem; border-top: 1px solid var(--linha); }
+.assinatura {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--secundario);
+  margin: 3rem 0 0;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--linha);
+}
+.assinatura strong { color: var(--tinta); font-weight: 600; }
 
-/* Rodapé */
-footer { padding: var(--bloco) 0 4rem; border-top: 1px solid var(--linha); }
-footer .assinatura { font-size: 0.95rem; line-height: 1.55; color: var(--secundario); }
-footer .assinatura strong { color: var(--tinta); font-weight: 600; }
-.lema { font-weight: 600; margin: 1.75rem 0; }
-.disclaimer { font-size: 0.95rem; color: var(--secundario); font-style: italic; margin: 0; }
+.lema {
+  font-family: var(--display);
+  font-size: 1.55rem;
+  line-height: 1.15;
+  letter-spacing: -0.018em;
+  font-weight: 600;
+  margin: 2.25rem 0 1.75rem;
+}
+.disclaimer { font-size: 0.9rem; color: var(--secundario); font-style: italic; margin: 0; }
 
 /* Botão flutuante */
 .flutuante {
   position: fixed;
-  right: 1rem;
-  bottom: 1rem;
+  right: 1.25rem;
+  bottom: 1.25rem;
   display: none;
   align-items: center;
   min-height: 44px;
-  padding: 0.7rem 1.15rem;
+  padding: 0.7rem 1.2rem;
   background: var(--acento);
   color: var(--papel);
   font-size: 0.95rem;
@@ -192,12 +245,20 @@ footer .assinatura strong { color: var(--tinta); font-weight: 600; }
 }
 .flutuante.visivel { display: inline-flex; }
 
+/* Telas largas: a margem esquerda ganha um filete de documento,
+   para a coluna não boiar num campo vazio. */
+@media (min-width: 1080px) {
+  :root { --ar-bloco: 5.5rem; --ar-titulo: 3.25rem; }
+  .pagina { padding-top: 6.5rem; }
+}
+
 @media (max-width: 640px) {
-  :root { --bloco: 3.5rem; --medida: 100%; }
+  :root { --ar-bloco: 3.5rem; --ar-titulo: 2.5rem; --medida: 100%; }
   body { font-size: 1.125rem; }
-  .pagina { padding: 2.5rem 1.25rem 0; }
+  .pagina { padding: 3rem 1.25rem 0; }
   .cta { display: block; width: 100%; text-align: center; }
   .flutuante { right: 0.75rem; bottom: 0.75rem; }
+  .lema { font-size: 1.4rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -207,5 +268,6 @@ footer .assinatura strong { color: var(--tinta); font-weight: 600; }
 @media print {
   .flutuante { display: none; }
   body { background: #fff; }
+  .pagina { border-left: 0; padding-left: 0; }
   details > *:not(summary) { display: block; }
 }
