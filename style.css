@@ -127,8 +127,8 @@ h3 {
 /* ---------- Capa ---------- */
 .capa { padding: 4rem 0 var(--ar); }
 .capa .caixa {
-  display: grid; grid-template-columns: minmax(0,1.12fr) minmax(0,0.88fr);
-  gap: 4rem; align-items: center;
+  display: grid; grid-template-columns: minmax(0,1.3fr) minmax(0,0.7fr);
+  gap: 4.5rem; align-items: center;
 }
 .identificacao {
   margin: 0; font-family: var(--sans); font-size: 0.78rem; font-weight: 500;
@@ -136,7 +136,7 @@ h3 {
 }
 .capa .entrada { font-size: 1.125rem; }
 .capa .acoes { margin-top: 1.4rem; display: flex; flex-wrap: wrap; align-items: center; }
-.capa figure { margin: 0; }
+.capa figure { margin: 0; justify-self: end; max-width: 340px; }
 .capa img { display: block; width: 100%; height: auto; }
 
 /* ---------- Seções ---------- */
@@ -267,7 +267,7 @@ footer a { color: var(--papel); }
   :root { --ar: 4.25rem; }
   .capa { padding-top: 2.75rem; }
   .capa .caixa { grid-template-columns: 1fr; gap: 2.5rem; }
-  .capa figure { max-width: 320px; }
+  .capa figure { max-width: 320px; justify-self: start; }
   .duas { grid-template-columns: 1fr; gap: 1.75rem; }
   .duas > .cabeca { position: static; }
   .prova { grid-template-columns: 1fr; gap: 2.75rem; }
