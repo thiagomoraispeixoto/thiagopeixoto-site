@@ -102,7 +102,6 @@ h3 {
   padding: 0.6rem 0; border-bottom: 1px solid transparent;
 }
 .topo nav a:hover { border-bottom-color: var(--vinho); color: var(--vinho); }
-.topo .botao { margin-left: 1.35rem; }
 
 /* ---------- Botões ---------- */
 .botao {
@@ -138,7 +137,6 @@ h3 {
   letter-spacing: 0.14em; text-transform: uppercase; color: var(--secundario);
 }
 .capa .entrada { font-size: 1.125rem; }
-.capa .acoes { margin-top: 1.4rem; display: flex; flex-wrap: wrap; align-items: center; }
 .capa figure { grid-area: foto; margin: 0; justify-self: end; max-width: 340px; }
 .capa img { display: block; width: 100%; height: auto; }
 
@@ -229,7 +227,6 @@ h3 {
 /* ---------- Onde atendo ---------- */
 .modalidades { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 3rem 4rem; }
 .modalidades p { font-size: 1.0625rem; }
-.modalidades .botao { margin-top: 1.35rem; }
 
 /* ---------- FAQ ---------- */
 .perguntas { max-width: 46rem; }
@@ -277,9 +274,6 @@ footer .disclaimer {
 }
 footer a { color: var(--papel); }
 
-/* ---------- Barra fixa no celular ---------- */
-.barra { display: none; }
-
 /* ---------- Telas médias ---------- */
 @media (max-width: 980px) {
   :root { --ar: 4.25rem; }
@@ -296,37 +290,24 @@ footer a { color: var(--papel); }
   .prova { grid-template-columns: 1fr; gap: 2.75rem; }
   .modalidades { grid-template-columns: 1fr; gap: 2.25rem; }
   .topo nav { display: none; }
-  .topo .botao { margin-left: auto; }
   footer .caixa { grid-template-columns: 1fr; gap: 2rem; }
 }
 
 /* ---------- Telefone ---------- */
 @media (max-width: 620px) {
   :root { --ar: 3.25rem; --medida: 100%; }
-  body { font-size: 1.0625rem; padding-bottom: 68px; }
+  body { font-size: 1.0625rem; }
   .caixa { padding: 0 1.25rem; }
   .topo .caixa { min-height: 58px; gap: 1rem; }
   .marca { font-size: 1rem; }
-  .topo .botao { display: none; }
   .capa { padding-top: 2.25rem; }
-  .capa .acoes { display: block; }
-  .capa .botao { width: 100%; }
   .secundario { margin: 0; }
   .documento { max-width: 100%; }
   .agendar .botao { width: 100%; }
-
-  .barra {
-    display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
-    padding: 0.6rem 1.25rem calc(0.6rem + env(safe-area-inset-bottom));
-    background: rgba(241,240,235,0.96);
-    backdrop-filter: saturate(140%) blur(8px);
-    border-top: 1px solid var(--linha);
-  }
-  .barra .botao { width: 100%; }
 }
 
 @media print {
-  .topo, .barra { position: static; display: none; }
+  .topo { position: static; display: none; }
   body { background: #fff; padding: 0; }
   footer { background: #fff; color: #000; }
   .documento { box-shadow: none; }
