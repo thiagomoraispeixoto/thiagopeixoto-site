@@ -61,7 +61,7 @@ p {
   -webkit-hyphens: auto;
 }
 /* Fora da justificação: rótulos, notas, credenciais, fac-símile e rodapé. */
-.rotulo, .identificacao, .apoio, .agendar .nota, .capa-seguir,
+.rotulo, .identificacao, .agendar .nota, .capa-seguir,
 .cred-nome, .cred-crm, .doc-rubrica, .doc-titulo,
 footer .assinatura, footer .disclaimer, footer .lema {
   text-align: left;
@@ -96,7 +96,6 @@ h3 {
 }
 .rotulo::before { content: ""; width: 1.85rem; height: 1px; background: var(--vinho); flex: none; }
 
-.apoio { font-family: var(--sans); font-size: 0.9rem; line-height: 1.6; color: var(--secundario); }
 
 /* ---------- Cabeçalho ---------- */
 .topo {
