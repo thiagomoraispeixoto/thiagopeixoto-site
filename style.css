@@ -53,7 +53,21 @@ body {
 .caixa { max-width: var(--largura); margin: 0 auto; padding: 0 2rem; }
 
 p, li { max-width: var(--medida); }
-p { margin: 0 0 1.15rem; text-wrap: pretty; }
+p {
+  margin: 0 0 1.15rem;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+/* Fora da justificação: rótulos, notas, credenciais, fac-símile e rodapé. */
+.rotulo, .identificacao, .apoio, .agendar .nota, .capa-seguir,
+.cred-nome, .cred-crm, .doc-rubrica, .doc-titulo,
+footer .assinatura, footer .disclaimer, footer .lema {
+  text-align: left;
+  hyphens: manual;
+  -webkit-hyphens: manual;
+}
 a { color: var(--vinho); text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
 :focus-visible { outline: 2px solid var(--vinho); outline-offset: 3px; }
 
@@ -97,6 +111,7 @@ h3 {
   color: var(--tinta); text-decoration: none; white-space: nowrap;
 }
 .topo nav { display: flex; gap: 1.6rem; margin-left: auto; font-family: var(--sans); font-size: 0.875rem; }
+.topo .botao { margin-left: 1.35rem; white-space: nowrap; }
 .topo nav a {
   color: var(--tinta); text-decoration: none;
   padding: 0.6rem 0; border-bottom: 1px solid transparent;
@@ -290,6 +305,7 @@ footer a { color: var(--papel); }
   .prova { grid-template-columns: 1fr; gap: 2.75rem; }
   .modalidades { grid-template-columns: 1fr; gap: 2.25rem; }
   .topo nav { display: none; }
+  .topo .botao { margin-left: auto; }
   footer .caixa { grid-template-columns: 1fr; gap: 2rem; }
 }
 
@@ -300,10 +316,18 @@ footer a { color: var(--papel); }
   .caixa { padding: 0 1.25rem; }
   .topo .caixa { min-height: 58px; gap: 1rem; }
   .marca { font-size: 1rem; }
+  .topo .botao { padding: 0.5rem 0.85rem; font-size: 0.85rem; min-height: 40px; }
   .capa { padding-top: 2.25rem; }
   .secundario { margin: 0; }
   .documento { max-width: 100%; }
   .agendar .botao { width: 100%; }
+}
+
+/* ---------- Telas muito estreitas ---------- */
+@media (max-width: 400px) {
+  .topo .caixa { gap: 0.75rem; }
+  .marca { font-size: 0.95rem; }
+  .topo .botao { padding: 0.45rem 0.75rem; font-size: 0.8rem; }
 }
 
 @media print {
