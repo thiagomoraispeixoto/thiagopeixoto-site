@@ -59,6 +59,12 @@ p {
   text-justify: inter-word;
   hyphens: auto;
   -webkit-hyphens: auto;
+  /* nunca partir palavra com menos de 6 letras, nem deixar menos de 3 de cada lado */
+  hyphenate-limit-chars: 6 3 3;
+  -webkit-hyphenate-limit-before: 3;
+  -webkit-hyphenate-limit-after: 3;
+  hyphenate-limit-lines: 2;
+  -webkit-hyphenate-limit-lines: 2;
 }
 /* Fora da justificação: rótulos, notas, credenciais, fac-símile e rodapé. */
 .rotulo, .identificacao, .agendar .nota, .capa-seguir, .pagamento,
@@ -312,6 +318,9 @@ footer a { color: var(--papel); }
 @media (max-width: 620px) {
   :root { --ar: 3.25rem; --medida: 100%; }
   body { font-size: 1.0625rem; }
+  /* Abaixo de 620px a medida cai para ~40 caracteres e a justificação
+     passa a esticar os espaços. Alinhamento à esquerda no celular. */
+  p { text-align: left; }
   .caixa { padding: 0 1.25rem; }
   .topo .caixa { min-height: 58px; gap: 1rem; }
   .marca { font-size: 1rem; }
