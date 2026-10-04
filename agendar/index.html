@@ -44,7 +44,7 @@
 
   <section class="passo" id="p1">
     <h2>1. Modalidade</h2>
-    <div class="opcoes" id="modalidades"></div>
+    <div class="opcoes" id="modalidades"><p class="msg">Carregando a agenda…</p></div>
   </section>
 
   <section class="passo" id="p2" hidden>
@@ -198,6 +198,8 @@ api({ acao: 'config' }).then(function (c) {
   botoes($('modalidades'), mods, function (m) { estado.modalidade = m; $('p2').hidden = false; if (estado.tipo) carregarHorarios(); });
   var tipos = (c.tipos || []).map(function (t) { return { id: t.id, rotulo: t.id === 'primeira' ? 'Sim, primeira consulta' : 'Não, é retorno' }; });
   botoes($('tipos'), tipos, function (t) { estado.tipo = t; carregarHorarios(); });
+}).catch(function () {
+  $('modalidades').innerHTML = '<p class="msg">Não foi possível carregar a agenda agora. Tente de novo em instantes ou escreva pelo <a href="https://wa.me/5532984127191">WhatsApp</a>.</p>';
 });
 </script>
 </body>
