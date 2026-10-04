@@ -275,6 +275,14 @@ details > *:not(summary) { margin-bottom: 1.15rem; max-width: 42rem; }
   font-family: var(--sans); font-size: 0.875rem; color: var(--secundario);
 }
 .agendar .botao { margin-top: 1.5rem; }
+.agendar .caminhos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; margin-top: 1.75rem; }
+.agendar .caminho { border: 1px solid var(--linha); background: var(--branco); padding: 1.5rem 1.6rem; display: flex; flex-direction: column; }
+.agendar .caminho h3 { font-family: var(--sans); font-size: 1rem; font-weight: 600; margin: 0 0 .6rem; }
+.agendar .caminho p { font-size: 1rem; margin: 0; flex: 1; }
+.agendar .caminho .botao { align-self: flex-start; }
+.botao-sec { background: transparent; color: var(--vinho); }
+.botao-sec:hover, .botao-sec:focus-visible { background: var(--vinho); color: var(--branco); }
+@media (max-width: 720px) { .agendar .caminhos { grid-template-columns: 1fr; } }
 
 /* ---------- Rodapé ---------- */
 footer { background: var(--tinta); color: var(--papel); padding: 4rem 0 3.25rem; }

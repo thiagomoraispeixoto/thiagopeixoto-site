@@ -10,7 +10,7 @@
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="preload" href="../fonts/ss4-text.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../style.css?v=2">
 <style>
   .ag { max-width: 40rem; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
   .ag h1 { font-size: clamp(1.7rem, 4vw, 2.2rem); line-height: 1.15; margin: .6rem 0 1rem; }
@@ -31,6 +31,7 @@
   .erro { color: var(--vinho); }
   .resumo { background: var(--branco); border: 1px solid var(--linha); padding: 1.2rem 1.4rem; border-radius: 4px; }
   .resumo p { margin: .35rem 0; }
+  .marcar { display: flex; gap: .5rem; align-items: center; }
   [hidden] { display: none !important; }
 </style>
 </head>
@@ -40,26 +41,22 @@
 <main class="ag">
   <p class="rotulo">Agendamento</p>
   <h1>Escolha um horário</h1>
-  <p>Consulta de aproximadamente 60 minutos, com a síntese clínica ao final. R$ 550,00. O horário fica reservado e a consulta é confirmada pelo WhatsApp, com a forma de pagamento.</p>
+  <p>Consulta de aproximadamente 60 minutos, com a síntese clínica ao final. R$ 550,00. O horário fica reservado na hora; eu confirmo pelo WhatsApp em até 24 horas, com a forma de pagamento.</p>
 
   <section class="passo" id="p1">
     <h2>1. Modalidade</h2>
     <div class="opcoes" id="modalidades"><p class="msg">Carregando a agenda…</p></div>
   </section>
 
-  <section class="passo" id="p2" hidden>
-    <h2>2. É sua primeira consulta comigo?</h2>
-    <div class="opcoes" id="tipos"></div>
-  </section>
-
   <section class="passo" id="p3" hidden>
-    <h2>3. Horário</h2>
+    <h2>2. Escolha um dos próximos horários</h2>
     <p class="msg" id="carregando">Procurando horários…</p>
-    <div id="horarios"></div>
+    <div class="opcoes" id="horarios"></div>
+    <p class="msg" id="nenhum" hidden>Nenhum serve? <a id="zapNenhum" href="#">Fale comigo no WhatsApp</a> que eu verifico outras possibilidades.</p>
   </section>
 
   <section class="passo" id="p4" hidden>
-    <h2>4. Seus dados</h2>
+    <h2>3. Seus dados</h2>
     <form id="form" novalidate>
       <label for="nome">Nome completo</label>
       <input id="nome" type="text" autocomplete="name" required>
@@ -67,6 +64,7 @@
       <input id="whatsapp" type="tel" autocomplete="tel" inputmode="tel" required>
       <label for="email">E-mail (opcional: para receber a confirmação e o lembrete)</label>
       <input id="email" type="email" autocomplete="email">
+      <label class="marcar"><input id="retorno" type="checkbox"> Já me consultei com você antes</label>
       <input class="armadilha" id="site_url" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
       <p class="msg">Não é preciso contar o motivo da consulta aqui. Isso é conversado na própria consulta.</p>
       <p class="msg erro" id="erroForm" hidden></p>
@@ -77,8 +75,7 @@
   <section class="passo" id="p5" hidden>
     <h2>Horário reservado</h2>
     <div class="resumo" id="resumo"></div>
-    <p>Para confirmar, toque no botão abaixo e envie a mensagem pronta pelo WhatsApp. Respondo em até 24 horas com a confirmação e a forma de pagamento.</p>
-    <a class="botao" id="zap" href="#">Confirmar pelo WhatsApp</a>
+    <p>Vou te chamar no WhatsApp informado em até 24 horas para confirmar a consulta e combinar o pagamento. Não precisa fazer mais nada agora.</p>
   </section>
 
   <p class="msg" style="margin-top:3rem">Este agendamento não é para urgências. Em situação de risco imediato para você ou outra pessoa, procure atendimento presencial de urgência ou ligue 192 (SAMU).</p>
@@ -119,25 +116,21 @@ function botoes(caixa, itens, aoEscolher) {
 var fmtDia = new Intl.DateTimeFormat('pt-BR', { weekday: 'long', day: '2-digit', month: 'long', timeZone: 'America/Sao_Paulo' });
 var fmtHora = new Intl.DateTimeFormat('pt-BR', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo' });
 
+var fmtOpcao = new Intl.DateTimeFormat('pt-BR', { weekday: 'long', day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo' });
+
 function carregarHorarios() {
-  $('p3').hidden = false; $('p4').hidden = true; $('carregando').hidden = false; $('horarios').innerHTML = '';
-  api({ acao: 'horarios', modalidade: estado.modalidade, tipo: estado.tipo }).then(function (r) {
+  $('p3').hidden = false; $('p4').hidden = true; $('nenhum').hidden = true; $('carregando').hidden = false;
+  $('carregando').textContent = 'Procurando horários…'; $('horarios').innerHTML = '';
+  api({ acao: 'horarios', modalidade: estado.modalidade }).then(function (r) {
     $('carregando').hidden = true;
     var lista = r.horarios || [];
-    if (!lista.length) {
-      $('horarios').innerHTML = '<p class="msg">Não há horários livres nos próximos dias nesta modalidade. Escreva pelo <a href="https://wa.me/5532984127191">WhatsApp</a> que eu verifico outras possibilidades.</p>';
-      return;
-    }
-    var porDia = {};
-    lista.forEach(function (iso) { var d = fmtDia.format(new Date(iso)); (porDia[d] = porDia[d] || []).push(iso); });
-    Object.keys(porDia).forEach(function (d) {
-      var t = document.createElement('p'); t.className = 'dia'; t.textContent = d; $('horarios').appendChild(t);
-      var caixa = document.createElement('div'); caixa.className = 'opcoes'; $('horarios').appendChild(caixa);
-      botoes(caixa, porDia[d].map(function (iso) { return { id: iso, rotulo: fmtHora.format(new Date(iso)) }; }), function (iso) {
-        [].forEach.call($('horarios').querySelectorAll('.op'), function (x) { if (x.parentNode !== caixa) x.setAttribute('aria-pressed', 'false'); });
-        estado.inicio = iso; $('p4').hidden = false; $('nome').focus();
-      });
-    });
+    $('zapNenhum').href = 'https://wa.me/5532984127191?text=' + encodeURIComponent('Olá, vi os horários no site (' + (estado.modalidade === 'Teleconsulta' ? 'teleconsulta' : 'presencial') + ') e nenhum serve para mim. Pode me passar outras opções?');
+    $('nenhum').hidden = false;
+    if (!lista.length) { $('carregando').hidden = false; $('carregando').textContent = 'Não há horário livre nesta modalidade nas próximas semanas.'; return; }
+    botoes($('horarios'), lista.map(function (iso) {
+      var t = fmtOpcao.format(new Date(iso)).replace(',', ' ·').replace(' ', ' ');
+      return { id: iso, rotulo: t.charAt(0).toUpperCase() + t.slice(1) };
+    }), function (iso) { estado.inicio = iso; $('p4').hidden = false; $('nome').focus(); });
   }).catch(function () {
     $('carregando').textContent = 'Não foi possível carregar os horários agora. Tente de novo em instantes ou escreva pelo WhatsApp.';
   });
@@ -146,7 +139,7 @@ function carregarHorarios() {
 $('form').onsubmit = function (e) {
   e.preventDefault();
   var dados = { nome: $('nome').value.trim(), whatsapp: $('whatsapp').value, email: $('email').value.trim(),
-                site_url: $('site_url').value, modalidade: estado.modalidade, tipo: estado.tipo, inicio: estado.inicio, origem: ORIGEM };
+                site_url: $('site_url').value, modalidade: estado.modalidade, tipo: $('retorno').checked ? 'retorno' : 'primeira', inicio: estado.inicio, origem: ORIGEM };
   var faltam = [];
   if (dados.nome.length < 3) faltam.push('nome');
   if (dados.whatsapp.replace(/\D/g, '').length < 10) faltam.push('WhatsApp com DDD');
@@ -162,8 +155,7 @@ $('form').onsubmit = function (e) {
     if (r.meet) linhas.push('<p>O link da teleconsulta será enviado na confirmação.</p>');
     if (estado.politica) linhas.push('<p class="msg">' + estado.politica + '</p>');
     $('resumo').innerHTML = linhas.join('');
-    $('zap').href = r.whatsappUrl;
-    ['p1', 'p2', 'p3', 'p4'].forEach(function (id) { $(id).hidden = true; });
+    ['p1', 'p3', 'p4'].forEach(function (id) { $(id).hidden = true; });
     $('p5').hidden = false; window.scrollTo(0, 0);
   }).catch(function () {
     $('enviar').disabled = false; $('enviar').textContent = 'Reservar horário';
@@ -195,9 +187,7 @@ var CONFIG_TESTE = { modalidades: ['Teleconsulta', 'Mangueirinha'], politica: 'S
 api({ acao: 'config' }).then(function (c) {
   estado.politica = c.politica || '';
   var mods = (c.modalidades || []).map(function (m) { return { id: m, rotulo: m === 'Teleconsulta' ? 'Teleconsulta' : 'Presencial · ' + m }; });
-  botoes($('modalidades'), mods, function (m) { estado.modalidade = m; $('p2').hidden = false; if (estado.tipo) carregarHorarios(); });
-  var tipos = (c.tipos || []).map(function (t) { return { id: t.id, rotulo: t.id === 'primeira' ? 'Sim, primeira consulta' : 'Não, é retorno' }; });
-  botoes($('tipos'), tipos, function (t) { estado.tipo = t; carregarHorarios(); });
+  botoes($('modalidades'), mods, function (m) { estado.modalidade = m; carregarHorarios(); });
 }).catch(function () {
   $('modalidades').innerHTML = '<p class="msg">Não foi possível carregar a agenda agora. Tente de novo em instantes ou escreva pelo <a href="https://wa.me/5532984127191">WhatsApp</a>.</p>';
 });
